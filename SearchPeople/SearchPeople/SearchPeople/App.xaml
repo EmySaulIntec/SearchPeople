@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SearchPeople.App">
+    <Application.Resources>
+
+        <!--Colors-->
+        <Color x:Key="Primary">#c4001d</Color>
+        <Color x:Key="Secundary">#ff1744</Color>
+        <Color x:Key="Tertiary">#ff616f</Color>
+
+        <!--End Colors-->
+
+        <!--Labels -->
+        <Style x:Key="labelTitle" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="FontSize" Value="Title" />
+        </Style>
+        <Style x:Key="labelSubTitle" TargetType="Label" BasedOn="{StaticResource labelTitle}">
+            <Setter Property="FontSize" Value="Subtitle" />
+        </Style>
+        <Style x:Key="labelDefault" TargetType="Label" BasedOn="{StaticResource labelTitle}">
+            <Setter Property="FontSize" Value="Default" />
+        </Style>
+
+        <!-- End Labels-->
+
+        <!--Buttons-->
+        <Style x:Key="simpleButton" TargetType="Button">
+            <Setter Property="FontSize" Value="Default" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        </Style>
+
+        <Style x:Key="cicleButton" TargetType="Button" BasedOn="{StaticResource simpleButton}">
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="CornerRadius" Value="20" />
+        </Style>
+
+        <!--End Buttons-->
+
+    </Application.Resources>
+</Application>
