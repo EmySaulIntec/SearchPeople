@@ -10,6 +10,10 @@ using Plugin.Media;
 using Plugin.CurrentActivity;
 using ImageCircle.Forms.Plugin.Droid;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 namespace SearchPeople.Droid
 {
     [Activity(Label = "SearchPeople", Icon = "@mipmap/searchPeopleIco", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -24,7 +28,10 @@ namespace SearchPeople.Droid
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             base.OnCreate(savedInstanceState);
-            
+         
+            AppCenter.Start("e9f66abb-0a9e-43a0-9a0d-611b39961fc2",
+                   typeof(Analytics), typeof(Crashes));
+      
             ImageCircleRenderer.Init();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
