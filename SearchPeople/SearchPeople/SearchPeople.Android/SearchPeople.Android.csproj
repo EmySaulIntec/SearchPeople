@@ -53,10 +53,16 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter">
+      <Version>2.3.0-preview</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>2.3.0-preview</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>2.3.0-preview</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Push">
       <Version>2.3.0-preview</Version>
     </PackageReference>
     <PackageReference Include="MonkeyCache.FileStore">
