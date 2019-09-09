@@ -2,7 +2,7 @@
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
-namespace SearchPeopleUiTest
+namespace SearchPeopleUITest
 {
     public class AppInitializer
     {
