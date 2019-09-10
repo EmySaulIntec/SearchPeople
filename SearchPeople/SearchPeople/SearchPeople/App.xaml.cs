@@ -13,6 +13,13 @@ namespace SearchPeople
             MainPage = new ImageWitPathPage();
         }
 
+        private static async IAsyncEnumerable<int> GetNumbersAsync()
+        {
+            foreach (var num in Enumerable.Range(0, 10))
+            {
+                yield return num;
+            }
+        }
         protected override void OnStart()
         {
             // Handle when your app starts
