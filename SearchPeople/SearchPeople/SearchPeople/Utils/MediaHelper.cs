@@ -1,5 +1,8 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,6 +14,8 @@ namespace SearchPeople.Utils
         {
             public ImageSource Image { get; set; }
             public string Path { get; set; }
+            public FileStream StreamImage { get; set; }
+            public string Text { get; set; }
         }
 
         public static ImageSource GetImageFromPath(string path)
@@ -51,8 +56,39 @@ namespace SearchPeople.Utils
                 {
                     return file.GetStream();
                 }),
-                Path = file.Path
+                Path = file.Path,
+                StreamImage = file.GetStream() as FileStream
             };
+
+        }
+
+        public async Task<IEnumerable<ImagePhoto>> PickMultiplePhotosAsync()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await App.Current.MainPage.DisplayAlert("No Camera", ":( No camera available.", "OK");
+                return null;
+            }
+
+            List<MediaFile> files = await CrossMedia.Current.PickPhotosAsync(new Plugin.Media.Abstractions.PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Medium
+            });
+
+            if (files.Count == 0)
+                return null;
+
+            return files.Select(file => new ImagePhoto()
+            {
+                Image = ImageSource.FromStream(() =>
+                {
+                    return file.GetStream();
+                }),
+                Path = file.Path,
+                StreamImage = file.GetStream() as FileStream
+            });
 
         }
     }
