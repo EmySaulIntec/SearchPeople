@@ -5,6 +5,8 @@ using System.Linq;
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
 using UIKit;
+using Prism;
+using Prism.Ioc;
 
 namespace SearchPeople.iOS
 {
@@ -30,6 +32,11 @@ namespace SearchPeople.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+        public class iOSInitializer : IPlatformInitializer
+        {
+            public void RegisterTypes(IContainerRegistry containerRegistry)
+            { }
         }
     }
 }

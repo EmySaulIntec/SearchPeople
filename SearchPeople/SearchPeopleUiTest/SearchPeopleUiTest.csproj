@@ -35,6 +35,9 @@
       <Version>2.3.0-preview</Version>
     </PackageReference>
     <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="Prism.Unity.Forms">
+      <Version>7.2.0.1367</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.UITest" Version="3.0.4-dev1" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>

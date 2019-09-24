@@ -1,31 +1,26 @@
 ﻿using MonkeyCache.FileStore;
 using SearchPeople.TestPlugins;
 using Xamarin.Forms;
+using Prism;
+using Prism.Unity;
+using Prism.Ioc;
+using Prism.Modularity;
 
 namespace SearchPeople
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        public App()
+        public App(IPlatformInitializer initializer = null) : base(initializer)
+        { }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            InitializeComponent();
-            Barrel.ApplicationId = "SEARCH_PEOPLE_BARREL_ID";
-            MainPage = new ImageWitPathPage();
+            throw new System.NotImplementedException();
         }
 
-        protected override void OnStart()
+        protected override void OnInitialized()
         {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            throw new System.NotImplementedException();
         }
     }
 }
