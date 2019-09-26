@@ -17,8 +17,8 @@
         <!--Labels -->
         <Style x:Key="labelTitle" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
             <Setter Property="FontSize" Value="Title" />
+            <Setter Property="Margin" Value="20" />
         </Style>
         <Style x:Key="labelSubTitle" TargetType="Label" BasedOn="{StaticResource labelTitle}">
             <Setter Property="FontSize" Value="Subtitle" />

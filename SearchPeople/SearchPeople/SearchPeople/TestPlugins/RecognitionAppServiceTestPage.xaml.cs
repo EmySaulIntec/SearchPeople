@@ -2,10 +2,8 @@
 using SearchPeople.Utils;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -26,9 +24,23 @@ namespace SearchPeople.TestPlugins
             InitializeComponent();
         }
 
+        private void BtnOpenDirectory_Clicked(object sender, EventArgs e)
+        {
+            var path = DependencyService.Get<IDirectoryDependency>().OpenDirectory();
+            var subFolders = Directory.GetDirectories(path);
+            var directories = Directory.GetFiles(path, "*.jpg", SearchOption.AllDirectories);
+
+        }
+
         private async void BtnLoadTrainingImages_Clicked(object sender, EventArgs e)
         {
+
             var trainingImages = await mediaHelper.PickMultiplePhotosAsync();
+
+            var s = trainingImages.FirstOrDefault().Path;
+
+            var subFolders = Directory.GetDirectories(s);
+
             ListTrainingImages.ItemsSource = trainingImages;
 
             await _recognitionAppService.CreateGroupAsync();
@@ -50,7 +62,7 @@ namespace SearchPeople.TestPlugins
                  imageFindend.Add(new ImagePhoto()
                  {
                      Image = imageSource,
-                     Path =  stringPath,
+                     Path = stringPath,
                      Text = string.Join(",", people.Select(d => d.Name))
                  });
              });
@@ -58,6 +70,7 @@ namespace SearchPeople.TestPlugins
             ListImagePhotos.ItemsSource = imageFindend;
 
         }
+
 
     }
 }

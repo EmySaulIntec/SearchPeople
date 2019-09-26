@@ -13,6 +13,7 @@ using ImageCircle.Forms.Plugin.Droid;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Xamd.ImageCarousel.Forms.Plugin.Droid;
 
 namespace SearchPeople.Droid
 {
@@ -33,6 +34,7 @@ namespace SearchPeople.Droid
                    typeof(Analytics), typeof(Crashes));
       
             ImageCircleRenderer.Init();
+            ImageCarouselRenderer.Init();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

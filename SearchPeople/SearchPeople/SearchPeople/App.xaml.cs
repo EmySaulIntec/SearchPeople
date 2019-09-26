@@ -1,5 +1,6 @@
 ﻿using MonkeyCache.FileStore;
 using SearchPeople.TestPlugins;
+using SearchPeople.Views;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -11,7 +12,7 @@ namespace SearchPeople
         {
             InitializeComponent();
             Barrel.ApplicationId = "SEARCH_PEOPLE_BARREL_ID";
-            MainPage = new RecognitionAppServiceTestPage();
+            MainPage = new SearchPeoplePage();
             
         }
 

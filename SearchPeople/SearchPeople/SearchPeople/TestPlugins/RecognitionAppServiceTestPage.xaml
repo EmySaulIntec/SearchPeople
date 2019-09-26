@@ -18,6 +18,10 @@
             <Button Text="Load Test Images" 
                     x:Name="BtnLoadTestImages" 
                     Clicked="BtnLoadTestImages_Clicked" />
+
+            <Button Text="Open Directory" 
+                    x:Name="BtnOpenDirectory" 
+                    Clicked="BtnOpenDirectory_Clicked" />
             <Grid >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

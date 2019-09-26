@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:controls="clr-namespace:Xamd.ImageCarousel.Forms.Plugin.Abstractions;assembly=Xamd.ImageCarousel.Forms.Plugin.Abstractions"
+             x:Class="SearchPeople.Views.SearchPeoplePage" BackgroundColor="White">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                <BoxView Grid.Row="0" BackgroundColor="Red" />
+                <BoxView Grid.Row="1" BackgroundColor="Black" />
+                <BoxView Grid.Row="2" BackgroundColor="Green" />
+
+                <StackLayout Grid.Row="0">
+                    <Label Style="{StaticResource labelTitle}"
+                           Text="Hola" />
+                 
+                    <!--<ListView   />-->
+
+                </StackLayout>
+                <Button HorizontalOptions="End" 
+                        Grid.Row="0"
+                        VerticalOptions="Start"
+                        Style="{StaticResource cicleButton}"
+                        BackgroundColor="White"
+                        Margin="0,20,20,0"
+                            Text="+"
+                            TextColor="red"/>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

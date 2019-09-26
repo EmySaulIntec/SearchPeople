@@ -64,6 +64,7 @@ namespace SearchPeople.Utils
 
         public async Task<IEnumerable<ImagePhoto>> PickMultiplePhotosAsync()
         {
+          
             await CrossMedia.Current.Initialize();
 
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
