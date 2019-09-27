@@ -14,7 +14,7 @@ namespace SearchPeople.ViewModels
 
         public IUserDialogs _pageDialog = UserDialogs.Instance;
         public IApiManager _apiManager;
-        public IApiService<IMakeUpApi> _makeUpApi = new ApiService<IMakeUpApi>(config.ApiUrl);
+        public IApiService<IAzureApi> _makeUpApi = new ApiService<IAzureApi>(config.ApiUrl);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

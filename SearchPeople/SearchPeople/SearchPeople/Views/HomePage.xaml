@@ -10,7 +10,11 @@
             <Label Text="Home Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <ListView ItemsSource="{Binding Groups}"/>
+            
             <Button Text="Test" Command="{Binding GetDataCommand}"/>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

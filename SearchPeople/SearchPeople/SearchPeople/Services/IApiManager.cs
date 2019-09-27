@@ -8,6 +8,6 @@ namespace SearchPeople.Services
 {
     public interface IApiManager
     {
-        Task<HttpResponseMessage> GetMakeUps(string brand);
+        Task<HttpResponseMessage> GetAzureData();
     }
 }

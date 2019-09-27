@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 namespace SearchPeople.Services
 {
     [Headers("Content-Type: application/json")]
-    public interface IMakeUpApi
+    public interface IAzureApi
     {
-        [Get("/api/v1/products.json?brand={brand}")]
-        Task<HttpResponseMessage> GetMakeUps(string brand);
-
-        [Post("/api/v1/addMakeUp")]
-        Task<MakeUp> CreateMakeUp([Body]  MakeUp makeUp, [Header("Authorization")] string token);
+       
+        [Get("/persongroups?top=1000&returnRecognitionModel=false")]
+        Task<HttpResponseMessage> GetGroups([Header(config.NameAzureKey)] string key);
 
     }
 }

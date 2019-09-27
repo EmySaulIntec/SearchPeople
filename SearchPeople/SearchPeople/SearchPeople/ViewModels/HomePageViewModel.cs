@@ -19,7 +19,7 @@ namespace SearchPeople.ViewModels
 {
     public class HomePageViewModel : BaseViewModel
     {
-        public ObservableCollection<MakeUp> MakeUps { get; set; }
+        public ObservableCollection<Group> Groups { get; set; }
         public DelegateCommand GetDataCommand { get; set; }
 
         public HomePageViewModel()
@@ -29,14 +29,14 @@ namespace SearchPeople.ViewModels
 
         private async Task GetData()
         {
-            var makeUpsResponse = await _apiManager.GetMakeUps("maybelline");
+            var makeUpsResponse = await _apiManager.GetAzureData();
 
             if (makeUpsResponse.IsSuccessStatusCode)
             {
                 var response = await makeUpsResponse.Content.ReadAsStringAsync();
-                var json = await Task.Run(() => JsonConvert.DeserializeObject<List<MakeUp>>(response));
+                var json = await Task.Run(() => JsonConvert.DeserializeObject<List<Group>>(response));
              
-                MakeUps = new ObservableCollection<MakeUp>(json);
+                Groups = new ObservableCollection<Group>(json);
             }else
             {
                 await _pageDialog.AlertAsync("Unable to get data", "Error", "Ok");

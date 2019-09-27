@@ -7,7 +7,9 @@ namespace SearchPeople
 {
     static class config
     {
-        public static string ApiUrl = "http://makeup-api.herokuapp.com/";
+        public static string ApiUrl = "https://eastus2.api.cognitive.microsoft.com/face/v1.0";
+        public const string NameAzureKey = "Ocp-Apim-Subscription-Key";
+
         public static string ApiHostName
         {
             get
@@ -18,6 +20,6 @@ namespace SearchPeople
                 return apiHostName;
             }
         }
-        static string APIKey { get; set; } = "Insert the API key here";
+        public static string APIKey { get; set; } = "";
     }
 }

@@ -18,7 +18,7 @@ namespace SearchPeople.Services
     {
         IUserDialogs _userDialogs = UserDialogs.Instance;
         IConnectivity _connectivity = CrossConnectivity.Current;
-        IApiService<IMakeUpApi> _makeUpApi;
+        IApiService<IAzureApi> _makeUpApi;
 
         public bool IsConnected { get; set; }
         public bool IsReachable { get; set; }
@@ -26,7 +26,7 @@ namespace SearchPeople.Services
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
         Dictionary<string, Task<HttpResponseMessage>> taskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
 
-        public ApiManager(IApiService<IMakeUpApi> makeUpApi)
+        public ApiManager(IApiService<IAzureApi> makeUpApi)
         {
             _makeUpApi = makeUpApi;
 
@@ -102,11 +102,11 @@ namespace SearchPeople.Services
             return data;
         }
 
-        public async Task<HttpResponseMessage> GetMakeUps(string brand)
+        public async Task<HttpResponseMessage> GetAzureData()
         {
             var cts = new CancellationTokenSource();
             var api = _makeUpApi.GetApi(Fusillade.Priority.UserInitiated);
-            var data = api.GetMakeUps(brand);
+            var data = api.GetGroups(config.APIKey);
 
             var task = RemoteRequestAsync<HttpResponseMessage>(data);
             runningTasks.Add(task.Id, cts);
