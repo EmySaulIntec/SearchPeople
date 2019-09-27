@@ -28,15 +28,33 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.30</Version>
+    </PackageReference>
+    <PackageReference Include="fusillade">
+      <Version>2.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>2.3.0-preview</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Push">
       <Version>2.3.0-preview</Version>
     </PackageReference>
+    <PackageReference Include="modernhttpclient">
+      <Version>2.4.2</Version>
+    </PackageReference>
     <PackageReference Include="NUnit" Version="2.6.4" />
+    <PackageReference Include="Polly">
+      <Version>7.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Unity.Forms">
       <Version>7.2.0.1367</Version>
+    </PackageReference>
+    <PackageReference Include="refit">
+      <Version>4.7.51</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Connectivity">
+      <Version>4.0.0.190-beta</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.UITest" Version="3.0.4-dev1" />
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />

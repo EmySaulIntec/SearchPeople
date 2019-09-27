@@ -10,6 +10,7 @@
             <Label Text="Home Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Test" Command="{Binding GetDataCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

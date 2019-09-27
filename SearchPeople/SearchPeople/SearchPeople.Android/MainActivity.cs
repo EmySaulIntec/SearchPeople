@@ -17,6 +17,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Push;
 using Prism;
 using Prism.Ioc;
+using Acr.UserDialogs;
 
 namespace SearchPeople.Droid
 {
@@ -30,6 +31,7 @@ namespace SearchPeople.Droid
 
             await CrossMedia.Current.Initialize();
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
 
             base.OnCreate(savedInstanceState);
 
