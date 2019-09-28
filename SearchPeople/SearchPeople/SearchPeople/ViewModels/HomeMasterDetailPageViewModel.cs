@@ -1,8 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SearchPeople.ViewModels
@@ -11,13 +9,13 @@ namespace SearchPeople.ViewModels
     {
 
         private readonly INavigationService _navigationService;
-        public DelegateCommand<string> GoTo { get; set; }
+        public DelegateCommand<string> GoToPageCommand { get; set; }
 
         public HomeMasterDetailPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
 
-            GoTo = new DelegateCommand<string>(async (page) =>
+            GoToPageCommand = new DelegateCommand<string>(async (page) =>
             {
                 await GoToPage(page);
             });

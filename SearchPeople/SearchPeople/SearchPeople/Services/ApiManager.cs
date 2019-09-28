@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,19 +15,21 @@ namespace SearchPeople.Services
 {
     public class ApiManager : IApiManager
     {
-        IUserDialogs _userDialogs = UserDialogs.Instance;
-        IConnectivity _connectivity = CrossConnectivity.Current;
-        IApiService<IAzureApi> _makeUpApi;
+        private readonly IUserDialogs _userDialogs;
+        private readonly IConnectivity _connectivity;
+        private readonly IApiService<IAzureApi> _azureApi;
 
         public bool IsConnected { get; set; }
         public bool IsReachable { get; set; }
 
         Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
-        Dictionary<string, Task<HttpResponseMessage>> taskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
 
-        public ApiManager(IApiService<IAzureApi> makeUpApi)
+        public ApiManager(IApiService<IAzureApi> azureApi)
         {
-            _makeUpApi = makeUpApi;
+            this._userDialogs = UserDialogs.Instance;
+            this._connectivity = CrossConnectivity.Current;
+            this._azureApi = azureApi;
+
 
             IsConnected = _connectivity.IsConnected;
             _connectivity.ConnectivityChanged += OnConnectivityChanged;
@@ -66,10 +67,7 @@ namespace SearchPeople.Services
                 return data;
             }
 
-
-
-            //IsReachable = await _connectivity.IsRemoteReachable(config.ApiHostName);
-            IsReachable = await _connectivity.IsRemoteReachable(config.ApiUrl,TimeSpan.FromSeconds(1));
+            IsReachable = await _connectivity.IsRemoteReachable(config.ApiUrl, TimeSpan.FromSeconds(1));
 
             if (!IsReachable)
             {
@@ -105,7 +103,8 @@ namespace SearchPeople.Services
         public async Task<HttpResponseMessage> GetAzureData()
         {
             var cts = new CancellationTokenSource();
-            var api = _makeUpApi.GetApi(Fusillade.Priority.UserInitiated);
+
+            var api = _azureApi.GetApi(Fusillade.Priority.UserInitiated);
             var data = api.GetGroups(config.APIKey);
 
             var task = RemoteRequestAsync<HttpResponseMessage>(data);

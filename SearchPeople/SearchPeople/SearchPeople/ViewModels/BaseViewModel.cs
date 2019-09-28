@@ -1,10 +1,8 @@
 ﻿using Acr.UserDialogs;
 using SearchPeople.Services;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SearchPeople.ViewModels
@@ -23,8 +21,8 @@ namespace SearchPeople.ViewModels
         public BaseViewModel()
         {
             _apiManager = new ApiManager(_makeUpApi);
-
         }
+
         public async Task RunSafe(Task task, bool ShowLoading = true, string loadingMessage = null)
         {
             try
@@ -41,8 +39,8 @@ namespace SearchPeople.ViewModels
             {
                 IsBusy = false;
                 UserDialogs.Instance.HideLoading();
-                Debug.WriteLine(e.ToString());
-                await App.Current.MainPage.DisplayAlert("Error", "Check your internet connection", "Ok");
+
+                await App.Current.MainPage.DisplayAlert("Problem with connection ", e.Message, "Ok");
             }
             finally
             {

@@ -1,21 +1,23 @@
-﻿using SearchPeople.Models.baseEntity;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
+using SearchPeople.Models.baseEntity;
 
 namespace SearchPeople.Models
 {
     public class Group : Entity
     {
-        public string personGroupId { get; set; }
-        public string name { get; set; }
-        public object userData { get; set; }
+        [JsonProperty("personGroupId")]
+        public string PersonGroupId { get; set; }
 
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+
+        [JsonIgnore]
         public string FolderPath { get; set; }
 
         public override string ToString()
         {
-            return name;
+            return $"{Name} ({PersonGroupId})";
         }
     }
 }

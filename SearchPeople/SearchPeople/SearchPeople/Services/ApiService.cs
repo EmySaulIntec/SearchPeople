@@ -2,9 +2,7 @@
 using ModernHttpClient;
 using Refit;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace SearchPeople.Services
 {
@@ -57,10 +55,13 @@ namespace SearchPeople.Services
             {
                 case Priority.Background:
                     return BackGround;
+              
                 case Priority.UserInitiated:
                     return UserInitialized;
+                
                 case Priority.Speculative:
                     return Speculative;
+                
                 default:
                     return UserInitialized;
             }

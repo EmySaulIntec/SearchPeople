@@ -1,19 +1,9 @@
-﻿using Acr.UserDialogs;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Prism.Commands;
-using Prism.Navigation;
-using Refit;
 using SearchPeople.Models;
-using SearchPeople.Services;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace SearchPeople.ViewModels
 {
@@ -29,17 +19,17 @@ namespace SearchPeople.ViewModels
 
         private async Task GetData()
         {
-            var makeUpsResponse = await _apiManager.GetAzureData();
+            var azureResponse = await _apiManager.GetAzureData();
 
-            if (makeUpsResponse.IsSuccessStatusCode)
+            if (azureResponse.IsSuccessStatusCode)
             {
-                var response = await makeUpsResponse.Content.ReadAsStringAsync();
-                var json = await Task.Run(() => JsonConvert.DeserializeObject<List<Group>>(response));
+                var response = await azureResponse.Content.ReadAsStringAsync();
+                IEnumerable<Group> jsonGroups = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Group>>(response));
              
-                Groups = new ObservableCollection<Group>(json);
+                Groups = new ObservableCollection<Group>(jsonGroups);
             }else
             {
-                await _pageDialog.AlertAsync("Unable to get data", "Error", "Ok");
+                await _pageDialog.AlertAsync("Problem getting data", "Error", "Ok");
             }
         }
     }

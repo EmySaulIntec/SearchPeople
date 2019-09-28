@@ -20,6 +20,6 @@ namespace SearchPeople
                 return apiHostName;
             }
         }
-        public static string APIKey { get; set; } = "";
+        public static string APIKey { get; set; } = "479c8f83fc6447cea4e4763e0a27ed26";
     }
 }
