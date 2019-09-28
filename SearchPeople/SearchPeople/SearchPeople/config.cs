@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace SearchPeople
 {
@@ -20,6 +17,6 @@ namespace SearchPeople
                 return apiHostName;
             }
         }
-        public static string APIKey { get; set; } = "479c8f83fc6447cea4e4763e0a27ed26";
+        public static string APIKey { get; set; } = "API KEY HERE";
     }
 }
