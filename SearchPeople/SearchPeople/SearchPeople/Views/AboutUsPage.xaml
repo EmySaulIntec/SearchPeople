@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ViewModels="clr-namespace:SearchPeople.ViewModels"
              mc:Ignorable="d"
-             x:Class="SearchPeople.Views.AboutUsPage">
+             x:Class="SearchPeople.Views.AboutUsPage"
+             Title="About Us!">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="About US!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding Source={x:Static ViewModels:AboutUsPageViewModel.AboutUsText}}"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="Medium"
+                   HorizontalTextAlignment="Center"
+                   Margin="20, 0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
