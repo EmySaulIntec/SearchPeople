@@ -27,6 +27,8 @@ namespace SearchPeople.ViewModels
         public DelegateCommand AddFaceToPersonCommand { get; set; }
         public DelegateCommand AddPersonCommand { get; set; }
 
+        public DelegateCommand SearchInPhotosCommand { get; set; }
+
 
         private readonly MediaHelper mediaHelper = new MediaHelper();
 
@@ -35,14 +37,17 @@ namespace SearchPeople.ViewModels
         {
             AddFaceToPersonCommand = new DelegateCommand(async () =>
             {
-                MediaHelper.ImagePhoto result = await mediaHelper.TakePhotoAsync();
-                if (result != null)
+                var images = await mediaHelper.PickMultipleImages();
+                if (images != null)
                 {
-                    TrainingTempImages.Add(new PersonFace()
+                    foreach (var image in images)
                     {
-                        Image = result.Image
-                    });
-                    MyImage = result.Image;
+                        TrainingTempImages.Add(new PersonFace()
+                        {
+                            Image = image.Image
+                        });
+                        MyImage = image.Image;
+                    }
                 }
             });
 
@@ -57,6 +62,15 @@ namespace SearchPeople.ViewModels
                    TrainingTempImages = tempImages
                });
            });
+
+            SearchInPhotosCommand = new DelegateCommand(async () =>
+            {
+                var images = await mediaHelper.PickMultipleImages();
+                if (images != null)
+                {
+                    
+                }
+            });
 
         }
     }

@@ -1,5 +1,7 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -17,6 +19,42 @@ namespace SearchPeople.Utils
         {
             return ImageSource.FromFile(path);
         }
+
+        public async Task<IEnumerable<ImagePhoto>> PickMultipleImages()
+        {
+
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await App.Current.MainPage.DisplayAlert("No Allowed", ":( Not access.", "OK");
+                return null;
+            }
+
+            var files = await CrossMedia.Current.PickPhotosAsync(new PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Full
+            });
+
+            if (!files.Any())
+                return null;
+
+            return files.Select(e =>
+             {
+
+                 return new ImagePhoto()
+                 {
+                     Image = ImageSource.FromStream(() =>
+                     {
+                         return e.GetStream();
+                     }),
+                     Path = e.Path
+                 };
+
+             });
+
+        }
+
         public async Task<ImagePhoto> TakePhotoAsync(bool camera = false)
         {
             await CrossMedia.Current.Initialize();
