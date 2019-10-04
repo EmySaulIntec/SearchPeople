@@ -19,14 +19,15 @@ namespace SearchPeople.TestPlugins
 
         public RecognitionAppServiceTestPage()
         {
-            _recognitionAppService = new RecognitionAppService();
-            _recognitionAppService.CreateGroupAsync().Wait();
             InitializeComponent();
+
+            _recognitionAppService = new RecognitionAppService();
         }
 
-       
+
         private async void BtnLoadTrainingImages_Clicked(object sender, EventArgs e)
         {
+            await _recognitionAppService.CreateGroupAsync();
 
             var trainingImages = await mediaHelper.PickMultipleImages();
 

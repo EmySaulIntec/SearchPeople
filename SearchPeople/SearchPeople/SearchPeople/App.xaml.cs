@@ -19,7 +19,7 @@ namespace SearchPeople
         protected override void OnInitialized()
         {
 
-            NavigationService.NavigateAsync("RecognitionAppServiceTestPage");
+            NavigationService.NavigateAsync(NavigationConstants.Home);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -32,9 +32,6 @@ namespace SearchPeople
             containerRegistry.RegisterForNavigation<HomeMasterDetailPage, HomeMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPeoplePage, SearchPeoplePageViewModel>();
-
-
-            containerRegistry.RegisterForNavigation<RecognitionAppServiceTestPage, RecognitionAppServiceTestPageViewModel>();
 
             
             containerRegistry.RegisterInstance<IRecognitionAppService>(new RecognitionAppService());

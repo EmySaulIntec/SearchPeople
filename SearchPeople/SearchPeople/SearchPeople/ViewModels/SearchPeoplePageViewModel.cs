@@ -43,21 +43,18 @@ namespace SearchPeople.ViewModels
         public SearchPeoplePageViewModel(IRecognitionAppService recognitionAppService)
         {
             _recognitionAppService = recognitionAppService;
-
-             _recognitionAppService.CreateGroupAsync().Wait();
         }
 
 
         public void Initialize(INavigationParameters parameters)
         {
-
             AddFaceToPersonCommand = new DelegateCommand(async () =>
             {
                 var images = await mediaHelper.PickMultipleImages();
                 if (images != null)
                 {
                     foreach (var image in images)
-                    {
+                    {  
                         TrainingTempImages.Add(new PersonFace()
                         {
                             Image = image.Image,
@@ -74,6 +71,7 @@ namespace SearchPeople.ViewModels
            {
                try
                {
+
                    List<PersonFace> tempImages = TrainingTempImages.ToList();
 
                    TrainingListImages.Add(new Person()
