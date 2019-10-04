@@ -13,7 +13,6 @@ namespace SearchPeople.Services
     {
         const int MAX_TRANSACTION_COUNT = 5;
 
-        const string SUBSCRIPTION_KEY = "06e5b9acb8064452b892004cc25fdfab";
         const string PERSON_GROUP_ID = "myfriends";
 
         private int PersonCreateds = 0;
@@ -21,24 +20,33 @@ namespace SearchPeople.Services
         List<Person> People = new List<Person>();
 
 
-        private readonly IFaceServiceClient faceClient = new FaceServiceClient(SUBSCRIPTION_KEY, "https://eastus2.api.cognitive.microsoft.com/face/v1.0/");
+        private IFaceServiceClient faceClient2;
 
         public async Task CreateGroupAsync()
         {
-            var groups = await faceClient.ListPersonGroupsAsync();
+            try
+            {
+                var faceClient = new FaceServiceClient(Config.APIKey, Config.ApiUrl);
 
-            if (groups.Any(e => e.PersonGroupId == PERSON_GROUP_ID))
-                await faceClient.DeletePersonGroupAsync(PERSON_GROUP_ID);
+                var groups = await faceClient.ListPersonGroupsAsync();
 
-            await faceClient.CreatePersonGroupAsync(PERSON_GROUP_ID, "My Friends");
+                if (groups.Any(e => e.PersonGroupId == PERSON_GROUP_ID))
+                    await faceClient.DeletePersonGroupAsync(PERSON_GROUP_ID);
+
+                await faceClient.CreatePersonGroupAsync(PERSON_GROUP_ID, "My Friends");
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         public async Task<List<Stream>> CreatePerson(IEnumerable<Stream> trainingPathPerson, string namePerson)
         {
-            CreatePersonResult person = await faceClient.CreatePersonAsync(PERSON_GROUP_ID, namePerson);
+            CreatePersonResult person = await faceClient2.CreatePersonAsync(PERSON_GROUP_ID, namePerson);
 
             var facesNotDetected = await AddFaceToPerson(PERSON_GROUP_ID, person, trainingPathPerson);
 
-            await faceClient.TrainPersonGroupAsync(PERSON_GROUP_ID);
+            await faceClient2.TrainPersonGroupAsync(PERSON_GROUP_ID);
 
             await WaitForTrainedPersonGroup(PERSON_GROUP_ID);
 
@@ -78,20 +86,20 @@ namespace SearchPeople.Services
 
         public async Task DeleteGroup()
         {
-            await faceClient.DeletePersonGroupAsync(PERSON_GROUP_ID);
+            await faceClient2.DeletePersonGroupAsync(PERSON_GROUP_ID);
         }
 
 
         private async Task<IEnumerable<Person>> IdentifyPersons(string personGroupId, FileStream streamPerson, bool personTogueter)
         {
-            Face[] faces = await faceClient.DetectAsync(streamPerson);
+            Face[] faces = await faceClient2.DetectAsync(streamPerson);
 
             Guid[] faceIds = faces.Select(face => face.FaceId).ToArray();
 
             if (faceIds.Length == 0)
                 return null;
 
-            IdentifyResult[] results = await faceClient.IdentifyAsync(personGroupId, faceIds);
+            IdentifyResult[] results = await faceClient2.IdentifyAsync(personGroupId, faceIds);
 
             IEnumerable<Person> peopleFindendInImage = People.Where(e => results.SelectMany(d => d.Candidates).Any(c => c.PersonId == e.PersonId));
 
@@ -107,7 +115,7 @@ namespace SearchPeople.Services
             TrainingStatus trainingStatus = null;
             while (true)
             {
-                trainingStatus = await faceClient.GetPersonGroupTrainingStatusAsync(personGroupId);
+                trainingStatus = await faceClient2.GetPersonGroupTrainingStatusAsync(personGroupId);
 
                 if (trainingStatus.Status != Status.Running)
                     break;
@@ -124,7 +132,7 @@ namespace SearchPeople.Services
             {
                 try
                 {
-                    await faceClient.AddPersonFaceAsync(personGroupId, person.PersonId, streamFace);
+                    await faceClient2.AddPersonFaceAsync(personGroupId, person.PersonId, streamFace);
                 }
                 catch (FaceAPIException ex)
                 {

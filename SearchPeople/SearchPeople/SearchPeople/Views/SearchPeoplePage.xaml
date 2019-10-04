@@ -92,9 +92,9 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </ScrollView>
-                
 
-                <Button Text="Buscar en Imagenes" Grid.Row="4" Grid.ColumnSpan="2" VerticalOptions="End"  />
+
+                <Button Text="Buscar en Imagenes" Grid.Row="4" Grid.ColumnSpan="2" VerticalOptions="End" Command="{Binding SearchInPhotosCommand}"  />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

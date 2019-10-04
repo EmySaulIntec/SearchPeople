@@ -4,6 +4,7 @@ using Prism.Unity;
 using Prism.Ioc;
 using SearchPeople.Views;
 using SearchPeople.ViewModels;
+using SearchPeople.Services;
 using SearchPeople.TestPlugins;
 using SearchPeople.TestPlugins.ViewModels;
 
@@ -18,7 +19,7 @@ namespace SearchPeople
         protected override void OnInitialized()
         {
 
-            NavigationService.NavigateAsync(NavigationConstants.Home);
+            NavigationService.NavigateAsync("RecognitionAppServiceTestPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,11 +34,10 @@ namespace SearchPeople
             containerRegistry.RegisterForNavigation<SearchPeoplePage, SearchPeoplePageViewModel>();
 
 
-            containerRegistry.RegisterForNavigation<CoverFlowSampleXamlView, CoverFlowSampleXamlViewPageViewModel>();
+            containerRegistry.RegisterForNavigation<RecognitionAppServiceTestPage, RecognitionAppServiceTestPageViewModel>();
 
-            containerRegistry.RegisterForNavigation<BindableLayoutTestPage, CoverFlowSampleXamlViewPageViewModel>();
-
-
+            
+            containerRegistry.RegisterInstance<IRecognitionAppService>(new RecognitionAppService());
 
         }
 

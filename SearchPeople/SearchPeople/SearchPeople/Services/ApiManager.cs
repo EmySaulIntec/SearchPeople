@@ -67,7 +67,7 @@ namespace SearchPeople.Services
                 return data;
             }
 
-            IsReachable = await _connectivity.IsRemoteReachable(config.ApiUrl, TimeSpan.FromSeconds(1));
+            IsReachable = await _connectivity.IsRemoteReachable(Config.ApiUrl, TimeSpan.FromSeconds(1));
 
             if (!IsReachable)
             {
@@ -105,7 +105,7 @@ namespace SearchPeople.Services
             var cts = new CancellationTokenSource();
 
             var api = _azureApi.GetApi(Fusillade.Priority.UserInitiated);
-            var data = api.GetGroups(config.APIKey);
+            var data = api.GetGroups(Config.APIKey);
 
             var task = RemoteRequestAsync<HttpResponseMessage>(data);
             runningTasks.Add(task.Id, cts);

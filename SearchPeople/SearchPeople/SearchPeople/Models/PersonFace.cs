@@ -7,5 +7,6 @@ namespace SearchPeople.Models
     {
         public int PersonId { get; set; }
         public ImageSource Image { get; set; }
+        public string Path { get;  set; }
     }
 }

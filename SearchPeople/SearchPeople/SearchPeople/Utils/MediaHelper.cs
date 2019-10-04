@@ -1,6 +1,7 @@
 ﻿using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -13,6 +14,8 @@ namespace SearchPeople.Utils
         {
             public ImageSource Image { get; set; }
             public string Path { get; set; }
+            public string Text { get; set; }
+            public FileStream StreamImage { get; set; }
         }
 
         public static ImageSource GetImageFromPath(string path)
@@ -48,7 +51,8 @@ namespace SearchPeople.Utils
                      {
                          return e.GetStream();
                      }),
-                     Path = e.Path
+                     Path = e.Path,
+                     StreamImage = new FileStream(e.Path, FileMode.Open)
                  };
 
              });

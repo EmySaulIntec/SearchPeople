@@ -2,7 +2,7 @@
 
 namespace SearchPeople
 {
-    static class config
+    static class Config
     {
         public static string ApiUrl = "https://eastus2.api.cognitive.microsoft.com/face/v1.0";
         public const string NameAzureKey = "Ocp-Apim-Subscription-Key";
@@ -17,6 +17,6 @@ namespace SearchPeople
                 return apiHostName;
             }
         }
-        public static string APIKey { get; set; } = "API KEY HERE";
+        public static string APIKey { get; set; } = "aa8d58eaa7264aff830d9d29346c0b5c";
     }
 }

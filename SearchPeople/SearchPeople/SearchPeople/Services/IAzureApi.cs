@@ -9,7 +9,7 @@ namespace SearchPeople.Services
     {
        
         [Get("/persongroups?top=1000&returnRecognitionModel=false")]
-        Task<HttpResponseMessage> GetGroups([Header(config.NameAzureKey)] string key);
+        Task<HttpResponseMessage> GetGroups([Header(Config.NameAzureKey)] string key);
 
     }
 }
