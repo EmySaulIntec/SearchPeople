@@ -18,6 +18,7 @@ using Microsoft.AppCenter.Push;
 using Prism;
 using Prism.Ioc;
 using Acr.UserDialogs;
+using PanCardView.Droid;
 
 namespace SearchPeople.Droid
 {
@@ -29,19 +30,26 @@ namespace SearchPeople.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            await CrossMedia.Current.Initialize();
-            CrossCurrentActivity.Current.Init(this, savedInstanceState);
-            UserDialogs.Init(this);
 
             base.OnCreate(savedInstanceState);
 
             AppCenter.Start("e9f66abb-0a9e-43a0-9a0d-611b39961fc2",
                    typeof(Analytics), typeof(Crashes), typeof(Push));
 
-            ImageCircleRenderer.Init();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+
+            await CrossMedia.Current.Initialize();
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+
+            UserDialogs.Init(this);
+
+            ImageCircleRenderer.Init();
+            
+            CardsViewRenderer.Preserve();
+
             LoadApplication(new App());
         }
         public class AndroidInitializer : IPlatformInitializer

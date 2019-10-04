@@ -4,6 +4,8 @@ using Prism.Unity;
 using Prism.Ioc;
 using SearchPeople.Views;
 using SearchPeople.ViewModels;
+using SearchPeople.TestPlugins;
+using SearchPeople.TestPlugins.ViewModels;
 
 namespace SearchPeople
 {
@@ -15,6 +17,7 @@ namespace SearchPeople
 
         protected override void OnInitialized()
         {
+
             NavigationService.NavigateAsync(NavigationConstants.Home);
         }
 
@@ -28,6 +31,14 @@ namespace SearchPeople
             containerRegistry.RegisterForNavigation<HomeMasterDetailPage, HomeMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPeoplePage, SearchPeoplePageViewModel>();
+
+
+            containerRegistry.RegisterForNavigation<CoverFlowSampleXamlView, CoverFlowSampleXamlViewPageViewModel>();
+
+            containerRegistry.RegisterForNavigation<BindableLayoutTestPage, CoverFlowSampleXamlViewPageViewModel>();
+
+
+
         }
 
     }

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.30" />
+    <PackageReference Include="CardsView" Version="2.2.2" />
     <PackageReference Include="fusillade" Version="2.0.5" />
     <PackageReference Include="Microsoft.AppCenter" Version="2.3.0-preview" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="2.3.0-preview" />
@@ -26,6 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="TestPlugins\BindableLayoutTestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="TestPlugins\CoverFlowSampleXamlView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="TestPlugins\FileStoreTestPluginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -59,5 +66,9 @@
     <EmbeddedResource Update="Views\SearchPeoplePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
 </Project>

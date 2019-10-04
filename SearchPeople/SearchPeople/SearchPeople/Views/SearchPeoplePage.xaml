@@ -4,12 +4,98 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="SearchPeople.Views.SearchPeoplePage">
+             x:Class="SearchPeople.Views.SearchPeoplePage" Title="Search Images">
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Search People!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        
+        <StackLayout >
+
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,20">
+                    <ScrollView Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding TrainingTempImages}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate  >
+                                        <Frame  CornerRadius="100" 
+                                                    HeightRequest="200"
+                                                    WidthRequest="200"
+                                                    HorizontalOptions="Center"
+                                                    Padding="0"
+                                                    IsClippedToBounds="True">
+                                            <Image Source="{Binding Image}" 
+                                                           Aspect="Fill"
+                                                           HorizontalOptions="Center"
+                                                           VerticalOptions="Center" />
+                                        </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </ScrollView>
+
+
+                    <Button Text="Add image" 
+                            VerticalOptions="End" 
+                            HorizontalOptions="End" 
+                            Margin="0,0,10,0"
+                            Command="{Binding AddFaceToPersonCommand}" >
+                    </Button>
+                </Grid>
+
+
+                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Entry Grid.Column="0" Placeholder="Person Name" Text="{Binding PersonName}" />
+                    <Button Grid.Column="1" Text="Agregar Persona" Command="{Binding AddPersonCommand}" />
+                </Grid>
+
+                <ScrollView Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" >
+                    <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding TrainingListImages}">
+                        <Label Text="" />
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Frame  CornerRadius="100" 
+                                            HeightRequest="200"
+                                            WidthRequest="200"
+                                            HorizontalOptions="Center"
+                                            Padding="0"
+                                            IsClippedToBounds="True">
+                                        <Image Source="{Binding MainImage}" 
+                                                   Aspect="Fill"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Frame>
+                                    
+                                    <Label Text="{Binding Name}" Margin="0" HorizontalOptions="Center" VerticalOptions="End" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+                
+
+                <Button Text="Buscar en Imagenes" Grid.Row="4" Grid.ColumnSpan="2" VerticalOptions="End"  />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -34,12 +34,12 @@ namespace SearchPeople.Utils
                     Directory = "Pictures",
                     Name = "test.jpg",
                     SaveToAlbum = true,
-                    PhotoSize = PhotoSize.Medium
+                    PhotoSize = PhotoSize.Full
                 });
             else
                 file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions()
                 {
-                    PhotoSize = PhotoSize.Medium
+                    PhotoSize = PhotoSize.Full
                 });
 
             if (file == null)
