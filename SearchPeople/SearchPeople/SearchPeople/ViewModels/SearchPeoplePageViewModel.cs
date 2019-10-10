@@ -40,9 +40,12 @@ namespace SearchPeople.ViewModels
 
         private IRecognitionAppService _recognitionAppService;
 
-        public SearchPeoplePageViewModel(IRecognitionAppService recognitionAppService)
+        INavigationService _navigationService;
+
+        public SearchPeoplePageViewModel(IRecognitionAppService recognitionAppService, INavigationService navigationService)
         {
             _recognitionAppService = recognitionAppService;
+            _navigationService = navigationService;
         }
 
 
@@ -111,9 +114,10 @@ namespace SearchPeople.ViewModels
                             Text = string.Join(",", people.Select(d => d.Name))
                         });
                     });
-
+                    var findedImagesParameter = new NavigationParameters();
+                    findedImagesParameter.Add("ImageList", imageFindend);
                     Debug.WriteLine(imageFindend.Count);
-
+                    await _navigationService.NavigateAsync(new Uri(NavigationConstants.FindedImage, UriKind.Relative), findedImagesParameter);
                 }
             });
 

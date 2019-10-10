@@ -13,5 +13,7 @@ namespace SearchPeople
         public static string SearchPeople = "HomeMasterDetailPage/NavigationPage/SearchPeoplePage";
         public static string Configuration = "HomeMasterDetailPage/NavigationPage/ConfigurationPage";
         public static string AboutUs = "HomeMasterDetailPage/NavigationPage/AboutUsPage";
+        public static string FindedImage = "HomeMasterDetailPage/NavigationPage/FindedImagePage";
+        public static string Detail = "HomeMasterDetailPage/NavigationPage/DetailPage";
     }
 }
