@@ -17,7 +17,7 @@
                         FontSize="Large"
                         HorizontalOptions="CenterAndExpand"
                         Margin="10" />
-            
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -26,8 +26,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-           
-                
+
+
                 <ScrollView Orientation="Horizontal" Grid.Row="0">
                     <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding ListedImages}" x:Name="stackViewCell">
                         <BindableLayout.ItemTemplate>
@@ -53,7 +53,7 @@
                         </BindableLayout.ItemTemplate>
                     </StackLayout>
                 </ScrollView>
-                
+
                 <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="1" />
                 <StackLayout Orientation="Horizontal"
                                              Grid.Row="2" 
@@ -61,14 +61,23 @@
                                              HorizontalOptions="Center"
                              Padding="0">
 
+                    <Button Text="Save" 
+                            BackgroundColor="Green"
+                            IsVisible="{Binding CanSave, Mode=TwoWay}"
+                            Command="{Binding SaveCommand}"
+                            CornerRadius="10"
+                            TextColor="White"
+                            WidthRequest="120" />
+
                     <Button Text="Delete" 
+                            IsVisible="{Binding ShowDelete, Mode=TwoWay}"
                             BackgroundColor="Red"
                             IsEnabled="{Binding IsSelectedImage}"
                             Command="{Binding DeleteCommand}"
                             CornerRadius="10"
                             TextColor="White"
                             WidthRequest="120" />
-                    
+
                     <Button Text="Detail" 
                             BackgroundColor="#1C8BE1"
                             CornerRadius="10"

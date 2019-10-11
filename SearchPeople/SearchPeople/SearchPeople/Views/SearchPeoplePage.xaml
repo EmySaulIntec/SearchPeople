@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             x:Class="SearchPeople.Views.SearchPeoplePage" Title="Search Images" BackgroundColor="White">
+             x:Class="SearchPeople.Views.SearchPeoplePage" Title="Search Images" 
+             
+             BackgroundColor="White">
     
     <ContentPage.Content>
         <StackLayout BackgroundColor="White" >
@@ -110,7 +112,7 @@
                                                   TextColor="Black" 
                                                   FontAttributes="Bold" FontSize="Large"/>
                                             <Span Text="&#10;"/>
-                                            <Span Text="{Binding CountImages, Mode=TwoWay,  StringFormat='{0} Imagenes'}"  />
+                                            <Span Text="{Binding CountImages, Mode=TwoWay,  StringFormat='{0} Images'}"  />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
@@ -147,17 +149,33 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button 
+                <StackLayout Orientation="Horizontal"
                 HorizontalOptions="End"
-                IsEnabled="{Binding IsNotRefreshing}"
-                VerticalOptions="End"
-                CornerRadius="20" 
-                Margin="0,0,15,20"
-                BackgroundColor="Black"
-                Text="Comparar"
-                Command="{Binding SearchInPhotosCommand}"
-                TextColor="White"
-                />
+                VerticalOptions="End">
+                    
+                    <Button 
+                        IsEnabled="{Binding IsNotRefreshing}"
+                        CornerRadius="20" 
+                        Margin="0,0,15,20"
+                        BackgroundColor="red"
+                        Text="Cancelar"
+                        Command="{Binding CancelCommand}"
+                        TextColor="White"
+                        />
+                    
+                    <Button 
+                        IsEnabled="{Binding IsNotRefreshing}"
+                        CornerRadius="20" 
+                        Margin="0,0,15,20"
+                        BackgroundColor="Black"
+                        Text="Comparar"
+                        Command="{Binding SearchInPhotosCommand}"
+                        TextColor="White"
+                        />
+
+               
+                </StackLayout>
+            
 
             </Grid>
         </StackLayout>

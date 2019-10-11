@@ -1,36 +1,99 @@
-﻿using Newtonsoft.Json;
-using Prism.Commands;
+﻿using Prism.Commands;
+using Prism.Navigation;
+using Prism.Services;
+using SearchPeople.Extends;
 using SearchPeople.Models;
+using SearchPeople.Utils;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SearchPeople.ViewModels
 {
-    public class HomePageViewModel : BaseViewModel
+    public class HomePageViewModel : IInitialize, INavigationAware, INotifyPropertyChanged
     {
-        public ObservableCollection<Group> Groups { get; set; }
-        public DelegateCommand GetDataCommand { get; set; }
+        private IPageDialogService _pageDialogService;
+        private IMonkeyManager _monkeyManager;
+        private INavigationParameters _parameters;
+        private INavigationService _navigationService;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<GroupFinded> GroupFindeds { get; set; } = new ObservableCollection<GroupFinded>();
+
+        public DelegateCommand<GroupFinded> ViewPeopleCommand { get; set; }
+        public DelegateCommand<GroupFinded> ViewFindedCommand { get; set; }
+
+        public DelegateCommand CallSearchedPageCommand { get; set; }
+
+        public DelegateCommand<GroupFinded> DeleteCommand { get; set; }
+        public HomePageViewModel(IPageDialogService pageDialogService, IMonkeyManager monkeyManager, INavigationService navigationService)
+        {
+            _pageDialogService = pageDialogService;
+            _monkeyManager = monkeyManager;
+            _navigationService = navigationService;
+
+            var monkey = _monkeyManager.GetMonkey<List<GroupFinded>>(Constants.GROUPED_FINDED);
+            if (monkey != null)
+            {
+                GroupFindeds = monkey.Item.ToObservableCollection();
+            }
+
+            ViewPeopleCommand = new DelegateCommand<GroupFinded>(async (people) =>
+            {
+                await CallGallery(people.PeopleName, people.PeoplePhotos);
+            });
+
+            ViewFindedCommand = new DelegateCommand<GroupFinded>(async (people) =>
+            {
+                await CallGallery(Constants.MAIN_TITLE, people.SearchedPeople);
+            });
+
+            CallSearchedPageCommand = new DelegateCommand(async () =>
+            {
+                await _navigationService.NavigateAsync(NavigationConstants.SearchPeople);
+            });
+
+            DeleteCommand = new DelegateCommand<GroupFinded>((people) =>
+           {
+               GroupFindeds.Remove(people);
+               _monkeyManager.SaveMokey<List<GroupFinded>>(GroupFindeds.ToList(), Constants.GROUPED_FINDED);
+           });
+        }
+
+        private async Task CallGallery(string name, IEnumerable<string> paths)
+        {
+            var images = paths.Select(e => new PersonFace()
+            {
+                Path = e
+            }).ToObservableCollection();
+
+            _parameters.Add(Constants.GALLERY_IMAGES, images);
+            _parameters.Add(Constants.GALLERY_NAME, name);
+
+            await _navigationService.NavigateAsync(NavigationConstants.Gallery, _parameters);
+        }
 
         public HomePageViewModel()
         {
-            GetDataCommand = new DelegateCommand(async() => await RunSafe(GetData()));
         }
 
-        private async Task GetData()
+        public void Initialize(INavigationParameters parameters)
         {
-            var azureResponse = await _apiManager.GetAzureData();
+            _parameters = parameters;
+        }
 
-            if (azureResponse.IsSuccessStatusCode)
-            {
-                var response = await azureResponse.Content.ReadAsStringAsync();
-                IEnumerable<Group> jsonGroups = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Group>>(response));
-             
-                Groups = new ObservableCollection<Group>(jsonGroups);
-            }else
-            {
-                await _pageDialog.AlertAsync("Problem getting data", "Error", "Ok");
-            }
+        public void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            _parameters = parameters;
+        }
+
+        public void OnNavigatedTo(INavigationParameters parameters)
+        {
+            _parameters = parameters;
         }
     }
 }

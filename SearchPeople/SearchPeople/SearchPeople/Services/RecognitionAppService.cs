@@ -12,7 +12,6 @@ namespace SearchPeople.Services
     {
         const int MAX_TRANSACTION_COUNT = 5;
 
-        const string PERSON_GROUP_ID = "myfriends";
 
         private int PersonCreateds = 0;
 
@@ -29,32 +28,33 @@ namespace SearchPeople.Services
             return await faceClient.ListPersonGroupsAsync();
         }
 
-        public async Task CreateGroupAsync()
+        public async Task<bool> CreateGroupAsync()
         {
             try
             {
-
                 var groups = await faceClient.ListPersonGroupsAsync();
 
-                if (groups.Any(e => e.PersonGroupId == PERSON_GROUP_ID))
-                    await faceClient.DeletePersonGroupAsync(PERSON_GROUP_ID);
+                if (groups.Any(e => e.PersonGroupId == Constants.PERSON_GROUP_ID))
+                    await faceClient.DeletePersonGroupAsync(Constants.PERSON_GROUP_ID);
 
-                await faceClient.CreatePersonGroupAsync(PERSON_GROUP_ID, PERSON_GROUP_ID);
+                await faceClient.CreatePersonGroupAsync(Constants.PERSON_GROUP_ID, Constants.PERSON_GROUP_ID);
+
+                return true;
             }
             catch (Exception ex)
             {
-
+                return false;
             }
         }
         public async Task<Guid> CreatePerson(IEnumerable<Stream> trainingPathPerson, string namePerson)
         {
-            CreatePersonResult person = await faceClient.CreatePersonAsync(PERSON_GROUP_ID, namePerson);
+            CreatePersonResult person = await faceClient.CreatePersonAsync(Constants.PERSON_GROUP_ID, namePerson);
 
-            var facesNotDetected = await AddFaceToPerson(PERSON_GROUP_ID, person, trainingPathPerson);
+            var facesNotDetected = await AddFaceToPerson(Constants.PERSON_GROUP_ID, person, trainingPathPerson);
 
-            await faceClient.TrainPersonGroupAsync(PERSON_GROUP_ID);
+            await faceClient.TrainPersonGroupAsync(Constants.PERSON_GROUP_ID);
 
-            await WaitForTrainedPersonGroup(PERSON_GROUP_ID);
+            await WaitForTrainedPersonGroup(Constants.PERSON_GROUP_ID);
 
             PersonCreateds += 1;
 
@@ -74,7 +74,7 @@ namespace SearchPeople.Services
             if (faceClient == null)
                 return;
 
-            var trainingStatus = await faceClient.GetPersonGroupTrainingStatusAsync(PERSON_GROUP_ID);
+            var trainingStatus = await faceClient.GetPersonGroupTrainingStatusAsync(Constants.PERSON_GROUP_ID);
             if (trainingStatus.Status != Status.Succeeded)
                 return;
 
@@ -88,7 +88,7 @@ namespace SearchPeople.Services
                 else
                     transactionCount += 1;
 
-                var peopleIdentifiedInPictured = await IdentifyPersons(PERSON_GROUP_ID, pictureToSearch, personTogueter);
+                var peopleIdentifiedInPictured = await IdentifyPersons(Constants.PERSON_GROUP_ID, pictureToSearch, personTogueter);
 
                 if (peopleIdentifiedInPictured != null)
                     processImageAction?.Invoke(pictureToSearch.Name, peopleIdentifiedInPictured);
@@ -100,16 +100,16 @@ namespace SearchPeople.Services
 
         public async Task DeleteGroup()
         {
-            await faceClient.DeletePersonGroupAsync(PERSON_GROUP_ID);
+            await faceClient.DeletePersonGroupAsync(Constants.PERSON_GROUP_ID);
         }
 
         public async Task DeletePerson(Guid personId)
         {
-            await faceClient.DeletePersonAsync(PERSON_GROUP_ID, personId);
+            await faceClient.DeletePersonAsync(Constants.PERSON_GROUP_ID, personId);
 
-            await faceClient.TrainPersonGroupAsync(PERSON_GROUP_ID);
+            await faceClient.TrainPersonGroupAsync(Constants.PERSON_GROUP_ID);
 
-            await WaitForTrainedPersonGroup(PERSON_GROUP_ID);
+            await WaitForTrainedPersonGroup(Constants.PERSON_GROUP_ID);
         }
 
 

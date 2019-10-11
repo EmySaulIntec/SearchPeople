@@ -1,6 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
+using Prism.Services;
 using SearchPeople.Models;
+using SearchPeople.Utils;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -12,8 +16,11 @@ namespace SearchPeople.ViewModels
         public ObservableCollection<PersonFace> ListedImages { get; set; } = new ObservableCollection<PersonFace>();
         public DelegateCommand<PersonFace> ViewImageCommand { get; set; }
 
+        public DelegateCommand SaveCommand { get; set; }
         public string Name { get; set; }
 
+        public bool CanSave { get; set; }
+        public bool ShowDelete { get; set; }
 
         private PersonFace _selectedImage;
         public PersonFace SelectedImage
@@ -37,26 +44,37 @@ namespace SearchPeople.ViewModels
         }
         public DelegateCommand DeleteCommand { get; set; }
 
-        public GalleryPageViewModel()
+        private IPageDialogService _pageDialogService;
+        private  INavigationService _navigationService;
+        private IMonkeyManager _monkeyManager;
+        private INavigationParameters _parameters;
+        public GalleryPageViewModel(IPageDialogService pageDialogService, IMonkeyManager monkeyManager, INavigationService navigationService)
         {
+            _pageDialogService = pageDialogService;
+            _monkeyManager = monkeyManager;
+            _navigationService = navigationService;
+
             ViewImageCommand = new DelegateCommand<PersonFace>((image) =>
             {
                 SelectedImage = image;
             });
+
         }
 
         public void Initialize(INavigationParameters parameters)
         {
-            if (parameters.ContainsKey("images"))
-                ListedImages = (ObservableCollection<PersonFace>)parameters["images"];
+            _parameters = parameters;
 
-            if (parameters.ContainsKey("name"))
-                Name = (string)parameters["name"];
+            if (_parameters.ContainsKey(Constants.GALLERY_IMAGES))
+                ListedImages = (ObservableCollection<PersonFace>)_parameters[Constants.GALLERY_IMAGES];
 
-            if (parameters.ContainsKey("delete"))
+            if (_parameters.ContainsKey(Constants.GALLERY_NAME))
+                Name = (string)_parameters[Constants.GALLERY_NAME];
+
+            if (_parameters.ContainsKey(Constants.GALLERY_DELETE_METHOD))
             {
-                var person = (Person)parameters["item"];
-                var methodCommand = (DelegateCommand<FaceToDelete>)parameters["delete"];
+                var person = (Person)_parameters[Constants.GALLERY_ITEM];
+                var methodCommand = (DelegateCommand<FaceToDelete>)_parameters[Constants.GALLERY_DELETE_METHOD];
 
                 DeleteCommand = new DelegateCommand(() =>
                {
@@ -72,8 +90,38 @@ namespace SearchPeople.ViewModels
                    SelectedImage = null;
                });
 
+                ShowDelete = true;
             }
 
+            if (_parameters.ContainsKey(Constants.GROUPED_FINDED))
+            {
+                CanSave = true;
+                GroupFinded groupFinded = (GroupFinded)_parameters[Constants.GROUPED_FINDED];
+
+                SaveCommand = new DelegateCommand(async () =>
+                {
+
+                    var listedGroups = _monkeyManager.GetMonkey<List<GroupFinded>>(Constants.GROUPED_FINDED);
+                    if (listedGroups != null)
+                    {
+                        listedGroups.Item.Add(groupFinded);
+                        _monkeyManager.SaveMokey<List<GroupFinded>>(listedGroups.Item, Constants.GROUPED_FINDED);
+                    }
+                    else
+                    {
+                        _monkeyManager.SaveMokey<List<GroupFinded>>(new List<GroupFinded>()
+                        {
+                            groupFinded
+                        }, Constants.GROUPED_FINDED);
+                    }
+
+                    await _pageDialogService.DisplayAlertAsync("Alert", "Saved", "Ok");
+                    await _navigationService.NavigateAsync(NavigationConstants.Home);
+
+                });
+            }
         }
+
+
     }
 }

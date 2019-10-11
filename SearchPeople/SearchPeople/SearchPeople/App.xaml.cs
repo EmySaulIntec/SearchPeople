@@ -7,13 +7,17 @@ using SearchPeople.ViewModels;
 using SearchPeople.Services;
 using SearchPeople.TestPlugins;
 using SearchPeople.TestPlugins.ViewModels;
+using SearchPeople.Utils;
+using MonkeyCache.FileStore;
 
 namespace SearchPeople
 {
     public partial class App : PrismApplication
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
-        { }
+        {
+            Barrel.ApplicationId = Constants.BARREL_ID;
+        }
 
 
         protected override void OnInitialized()
@@ -34,7 +38,9 @@ namespace SearchPeople
             containerRegistry.RegisterForNavigation<GalleryPage, GalleryPageViewModel>();
 
 
-            //containerRegistry.RegisterInstance<IRecognitionAppService>(new RecognitionAppService());
+            containerRegistry.RegisterInstance<IMediaHelper>(new MediaHelper());
+            containerRegistry.RegisterInstance<IMonkeyManager>(new MonkeyManager());
+
 
         }
 

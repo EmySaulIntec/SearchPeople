@@ -7,7 +7,6 @@ namespace SearchPeople.ViewModels
 {
     public class HomeMasterDetailPageViewModel : IInitialize
     {
-
         private readonly INavigationService _navigationService;
         public DelegateCommand<string> GoToPageCommand { get; set; }
 

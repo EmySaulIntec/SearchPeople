@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace SearchPeople.Utils
 {
-    public class MediaHelper
+    public class MediaHelper : IMediaHelper
     {
         public class ImagePhoto
         {
@@ -24,14 +24,13 @@ namespace SearchPeople.Utils
             public FileStream StreamImage { get; set; }
         }
 
-        public static ImageSource GetImageFromPath(string path)
+        public ImageSource GetImageFromPath(string path)
         {
             return ImageSource.FromFile(path);
         }
 
         public async Task<IEnumerable<ImagePhoto>> PickMultipleImages()
         {
-
             await CrossMedia.Current.Initialize();
 
             if (!CrossMedia.Current.IsTakePhotoSupported)
@@ -50,10 +49,8 @@ namespace SearchPeople.Utils
 
             return files.Select(e =>
              {
-
                  return new ImagePhoto()
                  {
-                     
                      Path = e.Path,
                      StreamImage = new FileStream(e.Path, FileMode.Open)
                  };

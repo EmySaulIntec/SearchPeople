@@ -9,10 +9,11 @@ namespace SearchPeople
         //Here you can create constants with  
         //the names of page you will navigate
 
-        public static string Home = "HomeMasterDetailPage/NavigationPage/HomePage";
-        public static string SearchPeople = "HomeMasterDetailPage/NavigationPage/SearchPeoplePage";
+        public static string Home = "/HomeMasterDetailPage/NavigationPage/HomePage";
+        public static string SearchPeople = "/NavigationPage/SearchPeoplePage";
+        public static string GallerySave = "/GalleryPage";
         public static string Gallery = "GalleryPage";
-        public static string Configuration = "HomeMasterDetailPage/NavigationPage/ConfigurationPage";
-        public static string AboutUs = "HomeMasterDetailPage/NavigationPage/AboutUsPage";
+        public static string Configuration = "ConfigurationPage";
+        public static string AboutUs = "AboutUsPage";
     }
 }

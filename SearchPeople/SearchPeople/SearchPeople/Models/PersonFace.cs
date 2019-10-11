@@ -6,7 +6,13 @@ namespace SearchPeople.Models
 {
     public class PersonFace : Entity
     {
-        public ImageSource Image { get; set; }
+        public ImageSource Image
+        {
+            get
+            {
+                return ImageSource.FromFile(this.Path);
+            }
+        }
         public string Path { get; set; }
 
         public Stream ImageStream

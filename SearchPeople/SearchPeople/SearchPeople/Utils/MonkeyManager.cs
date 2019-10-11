@@ -9,14 +9,19 @@ namespace SearchPeople.Utils
         public T Item { get; set; }
         public bool IsExpired { get; internal set; }
     }
-    public class MonkeyManager
+    public class MonkeyManager : IMonkeyManager
     {
         IBarrel file;
         public MonkeyManager()
         {
+            Barrel.ApplicationId = Constants.BARREL_ID;
             file = Barrel.Current;
         }
 
+        public void EmptyAllMonkeys()
+        {
+            file.EmptyAll();
+        }
         /// <summary>
         /// Save a json object or item temporarily for a day
         /// </summary>
@@ -25,6 +30,7 @@ namespace SearchPeople.Utils
         /// <param name="nameMonkey">Name with which the object will be saved</param>
         public void SaveMokey<T>(T element, string nameMonkey)
         {
+            
             var expireIn = TimeSpan.FromDays(1);
             SaveMokey(element, nameMonkey, expireIn);
         }

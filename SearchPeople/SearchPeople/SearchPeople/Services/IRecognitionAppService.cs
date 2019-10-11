@@ -10,7 +10,7 @@ namespace SearchPeople.Services
     public interface IRecognitionAppService
     {
         Task<PersonGroup[]> ListPersonGroupsAsync();
-        Task CreateGroupAsync();
+        Task<bool> CreateGroupAsync();
         Task<Guid> CreatePerson(IEnumerable<Stream> trainingPathPerson, string namePerson);
         Task SearchPersonInPictures(IEnumerable<FileStream> pathSearchPeople, Action<string, IEnumerable<Person>> processImageAction = null, bool personTogueter = false);
 

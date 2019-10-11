@@ -27,7 +27,7 @@ namespace SearchPeople.TestPlugins
 
         private async void BtnLoadTrainingImages_Clicked(object sender, EventArgs e)
         {
-            await _recognitionAppService.CreateGroupAsync();
+            var created = await _recognitionAppService.CreateGroupAsync();
 
             var trainingImages = await mediaHelper.PickMultipleImages();
 
