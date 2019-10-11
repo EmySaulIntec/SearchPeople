@@ -11,7 +11,6 @@
        
         <StackLayout>
             <Grid VerticalOptions="CenterAndExpand">
-
                 <Image Source="{Binding BackImg, Mode=TwoWay}"
                        IsVisible="{Binding IsEmpty, Mode=TwoWay}"
                        VerticalOptions="Center"
@@ -60,10 +59,9 @@
                                 <Label 
                                     
                                     Grid.Column="1"
-                                   
                                     Text="{Binding Name}"  
                                     FontAttributes="Bold"  
-                                    Margin="10,0,0,0" >
+                                    Margin="10,0,0,0" > 
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding PeopleName}"  

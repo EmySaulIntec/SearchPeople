@@ -9,9 +9,9 @@
     <Application.Resources>
 
         <!--Colors-->
-        <Color x:Key="Primary">#c4001d</Color>
-        <Color x:Key="Secundary">#ff1744</Color>
-        <Color x:Key="Tertiary">#ff616f</Color>
+        <Color x:Key="Primary">#1C8BE1</Color>
+        <Color x:Key="Secundary">White</Color>
+        <Color x:Key="Tertiary">#3e64ff</Color>
 
         <!--End Colors-->
 
