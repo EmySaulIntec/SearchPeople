@@ -5,16 +5,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             x:Class="SearchPeople.Views.HomePage" BackgroundColor="White" Title="Search your people" >
+             x:Class="SearchPeople.Views.HomePage" BackgroundColor="White" Title="Search your people" 
+            >
     <ContentPage.Content>
        
         <StackLayout>
             <Grid VerticalOptions="CenterAndExpand">
-                
+
+                <Image Source="{Binding BackImg, Mode=TwoWay}"
+                       IsVisible="{Binding IsEmpty, Mode=TwoWay}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       HeightRequest="300"
+                       WidthRequest="300"
+                       Aspect="Fill" />
+
                 <ListView HasUnevenRows="True" 
                       CachingStrategy="RecycleElement"
                       x:Name="listViewCell"
-                      ItemsSource="{Binding GroupFindeds,Mode=TwoWay}">
+                      ItemsSource="{Binding GroupFindeds, Mode=TwoWay}">
+                 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

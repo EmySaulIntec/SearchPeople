@@ -22,6 +22,23 @@ namespace SearchPeople.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public string BackImg { get; set; } = "ic_addyoursearch.png";
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return GroupFindeds.Count == 0;
+            }
+        }
+
+        public bool IsNotEmpty
+        {
+            get
+            {
+                return GroupFindeds.Count > 0;
+            }
+        }
         public ObservableCollection<GroupFinded> GroupFindeds { get; set; } = new ObservableCollection<GroupFinded>();
 
         public DelegateCommand<GroupFinded> ViewPeopleCommand { get; set; }

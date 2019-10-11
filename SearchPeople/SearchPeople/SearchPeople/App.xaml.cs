@@ -4,9 +4,6 @@ using Prism.Unity;
 using Prism.Ioc;
 using SearchPeople.Views;
 using SearchPeople.ViewModels;
-using SearchPeople.Services;
-using SearchPeople.TestPlugins;
-using SearchPeople.TestPlugins.ViewModels;
 using SearchPeople.Utils;
 using MonkeyCache.FileStore;
 
