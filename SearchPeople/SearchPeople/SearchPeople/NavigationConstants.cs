@@ -15,5 +15,7 @@ namespace SearchPeople
         public static string Gallery = "GalleryPage";
         public static string Configuration = "ConfigurationPage";
         public static string AboutUs = "AboutUsPage";
+        public static string Detail = "HomeMasterDetailPage/NavigationPage/DetailPage";
+
     }
 }
