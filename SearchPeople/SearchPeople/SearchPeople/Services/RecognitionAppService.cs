@@ -1,5 +1,6 @@
 ﻿using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
+using SearchPeople.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -164,6 +165,49 @@ namespace SearchPeople.Services
                 }
             }
             return facesNotDetected;
+        }
+
+        public async Task<DetailImage> GetAttribtsFromImage(Stream image)
+        {
+            var requiredFaceAttributes = new FaceAttributeType[] {
+                    FaceAttributeType.Age,
+                    FaceAttributeType.Gender,
+                    FaceAttributeType.Smile,
+                    FaceAttributeType.FacialHair,
+                    FaceAttributeType.HeadPose,
+                    FaceAttributeType.Glasses,
+                    FaceAttributeType.Emotion
+                };
+
+
+            var faces = await faceClient.DetectAsync(image, true, false, requiredFaceAttributes);
+
+            DetailImage detailImage = new DetailImage();
+            foreach (var face in faces)
+            {
+                var attributes = face.FaceAttributes;
+                var age = attributes.Age;
+                var gender = attributes.Gender;
+                var smile = attributes.Smile;
+                var facialHair = attributes.FacialHair;
+                var headPose = attributes.HeadPose;
+                var glasses = attributes.Glasses;
+                var emotion = attributes.Emotion;
+
+                detailImage.Attributes.Add(new Attributes()
+                {
+                    FaceAttributes = attributes,
+                    Age = age,
+                    Gender = gender,
+                    Smile = smile,
+                    FacialHair = facialHair,
+                    HeadPose = headPose,
+                    Glasses = glasses,
+                    Emotion = emotion
+                });
+            }
+
+            return detailImage;
         }
     }
 }

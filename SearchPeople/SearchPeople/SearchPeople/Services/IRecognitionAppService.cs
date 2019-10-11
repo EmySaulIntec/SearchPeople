@@ -1,4 +1,5 @@
 ﻿using Microsoft.ProjectOxford.Face.Contract;
+using SearchPeople.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,5 +17,7 @@ namespace SearchPeople.Services
 
         Task DeleteGroup();
         Task DeletePerson(Guid personId);
+
+        Task<DetailImage> GetAttribtsFromImage(Stream image);
     }
 }

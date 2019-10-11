@@ -7,7 +7,8 @@
              mc:Ignorable="d"
              x:Class="SearchPeople.Views.GalleryPage" BackgroundColor="White" Title="Images List">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+               <StackLayout>
 
             <Label 
                         Grid.Column="1"
@@ -82,21 +83,45 @@
                             BackgroundColor="#1C8BE1"
                             CornerRadius="10"
                             TextColor="White"
-                            WidthRequest="120" />
-                </StackLayout>
-                <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="3" />
+                            WidthRequest="120" 
+                            Command="{Binding DetailImageCommand}"
+                            />
 
-                <controls:CircleImage  
-                                    Grid.Row="4"
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="3" IsVisible="{Binding ShowingDetail}">
+                        <Label 
+                            Grid.Column="1"
+                            TextColor="Black"
+                            Text="{Binding DetailInfo}"  
+                            FontAttributes="Bold"  
+                            FontSize="Caption"
+                            Margin="10,0,10,0"
+                            HorizontalOptions="CenterAndExpand"
+                          />
+
+                        <Label Text="{Binding ValueSmilePercent, StringFormat='Happiness Level: {0:N}%'}" Margin="10,0,0,0" />
+                        <Slider Value="{Binding ValueSmile, Mode=TwoWay}" Maximum="1" 
+                                MaximumTrackColor="Wheat" 
+                                MinimumTrackColor="Green"
+                                ThumbColor="Blue" Grid.Row="3" />
+                    </StackLayout>
+
+                    <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="4" />
+
+                    <controls:CircleImage  
+                                    Grid.Row="5"
                                     Margin="10"
                                     Source="{Binding SelectedImage.Image, Mode=TwoWay}"
                                     Aspect="Fill" 
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
-                                    HeightRequest="300"
-                                    WidthRequest="300" />
+                                    HeightRequest="250"
+                                    WidthRequest="250" />
 
+              
             </Grid>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

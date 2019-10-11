@@ -108,6 +108,7 @@
                         WidthRequest="80" 
                         Margin="20"
                         BackgroundColor="#3e64ff"
+                        FontSize="Large"
                         Text="+"
                         TextColor="White"
                         />

@@ -2,11 +2,13 @@
 using Prism.Navigation;
 using Prism.Services;
 using SearchPeople.Models;
+using SearchPeople.Services;
 using SearchPeople.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace SearchPeople.ViewModels
 {
@@ -15,12 +17,25 @@ namespace SearchPeople.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<PersonFace> ListedImages { get; set; } = new ObservableCollection<PersonFace>();
         public DelegateCommand<PersonFace> ViewImageCommand { get; set; }
-
+        public DelegateCommand DetailImageCommand { get; private set; }
         public DelegateCommand SaveCommand { get; set; }
+        public DelegateCommand DeleteCommand { get; set; }
         public string Name { get; set; }
+        public float ValueSmile { get; set; } = 0;
+
+        public float ValueSmilePercent
+        {
+            get
+            {
+                return ValueSmile * 100;
+            }
+        }
+        public string DetailInfo { get; set; }
 
         public bool CanSave { get; set; }
         public bool ShowDelete { get; set; }
+
+        public bool ShowingDetail { get; set; }
 
         private PersonFace _selectedImage;
         public PersonFace SelectedImage
@@ -42,10 +57,9 @@ namespace SearchPeople.ViewModels
                 return SelectedImage != null;
             }
         }
-        public DelegateCommand DeleteCommand { get; set; }
 
         private IPageDialogService _pageDialogService;
-        private  INavigationService _navigationService;
+        private INavigationService _navigationService;
         private IMonkeyManager _monkeyManager;
         private INavigationParameters _parameters;
         public GalleryPageViewModel(IPageDialogService pageDialogService, IMonkeyManager monkeyManager, INavigationService navigationService)
@@ -53,12 +67,28 @@ namespace SearchPeople.ViewModels
             _pageDialogService = pageDialogService;
             _monkeyManager = monkeyManager;
             _navigationService = navigationService;
+            var recognitionAppService = new RecognitionAppService();
 
             ViewImageCommand = new DelegateCommand<PersonFace>((image) =>
             {
                 SelectedImage = image;
+                ShowingDetail = false;
             });
 
+            DetailImageCommand = new DelegateCommand(async () =>
+            {
+                if (SelectedImage == null)
+                {
+                    await pageDialogService.DisplayAlertAsync("Alert", Constants.IMAGE_NOT_SELECTED, "Ok");
+                    return;
+                }
+                var detail = await recognitionAppService.GetAttribtsFromImage(SelectedImage.ImageStream);
+
+                DetailInfo = string.Join(", ", detail.Attributes.Select(e => e.GetInfo()));
+
+                ValueSmile = detail.Attributes.Select(d => d.Emotion.Happiness).Average();
+                ShowingDetail = true;
+            });
         }
 
         public void Initialize(INavigationParameters parameters)

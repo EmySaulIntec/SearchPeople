@@ -23,6 +23,7 @@
         public const string GROUP_NOT_CREATED = "Group not created.";
         public const string IMAGE_NOT_LOADED = "Images not loaded";
         public const string NOT_INTERNET = "Not have connection to internet";
-     
+
+        public const string IMAGE_NOT_SELECTED = "Imagen no seleccionada";
     }
 }
