@@ -1,6 +1,6 @@
 ﻿using SearchPeople.Models.baseEntity;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -23,5 +23,14 @@ namespace SearchPeople.Models
 
         public List<PersonFace> TrainingTempImages { get; set; } = new List<PersonFace>();
 
+        public int CountImages
+        {
+            get
+            {
+                return TrainingTempImages.Count;
+            }
+        }
+
+        public Guid PersonId { get; set; }
     }
 }

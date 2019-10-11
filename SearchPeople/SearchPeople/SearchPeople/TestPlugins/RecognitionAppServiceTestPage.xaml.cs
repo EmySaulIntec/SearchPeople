@@ -55,7 +55,6 @@ namespace SearchPeople.TestPlugins
 
                 imageFindend.Add(new ImagePhoto()
                 {
-                    Image = imageSource,
                     Path = stringPath,
                     Text = string.Join(",", people.Select(d => d.Name))
                 });

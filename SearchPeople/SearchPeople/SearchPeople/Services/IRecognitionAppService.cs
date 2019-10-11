@@ -9,10 +9,12 @@ namespace SearchPeople.Services
 {
     public interface IRecognitionAppService
     {
+        Task<PersonGroup[]> ListPersonGroupsAsync();
         Task CreateGroupAsync();
-        Task<List<Stream>> CreatePerson(IEnumerable<Stream> trainingPathPerson, string namePerson);
+        Task<Guid> CreatePerson(IEnumerable<Stream> trainingPathPerson, string namePerson);
         Task SearchPersonInPictures(IEnumerable<FileStream> pathSearchPeople, Action<string, IEnumerable<Person>> processImageAction = null, bool personTogueter = false);
 
         Task DeleteGroup();
+        Task DeletePerson(Guid personId);
     }
 }

@@ -2,7 +2,6 @@
 using SearchPeople.Services;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace SearchPeople.ViewModels
@@ -12,7 +11,7 @@ namespace SearchPeople.ViewModels
 
         public IUserDialogs _pageDialog = UserDialogs.Instance;
         public IApiManager _apiManager;
-        public IApiService<IAzureApi> _makeUpApi = new ApiService<IAzureApi>(Config.ApiUrl);
+        private IApiService<IAzureApi> _makeUpApi = new ApiService<IAzureApi>(Config.ApiUrl);
 
         public event PropertyChangedEventHandler PropertyChanged;
 

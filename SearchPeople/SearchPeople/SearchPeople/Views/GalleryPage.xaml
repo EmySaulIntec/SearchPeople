@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             mc:Ignorable="d"
+             x:Class="SearchPeople.Views.GalleryPage" BackgroundColor="White" Title="Images List">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label 
+                        Grid.Column="1"
+                        TextColor="Black"
+                        Text="{Binding Name}"  
+                        FontAttributes="Bold"  
+                        FontSize="Large"
+                        HorizontalOptions="CenterAndExpand"
+                        Margin="10" />
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+           
+                
+                <ScrollView Orientation="Horizontal" Grid.Row="0">
+                    <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding ListedImages}" x:Name="stackViewCell">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate  >
+                                <controls:CircleImage  
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    Margin="10"
+                                    Source="{Binding Image}"
+                                    Aspect="Fill" 
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HeightRequest="100"
+                                    WidthRequest="100">
+                                    <controls:CircleImage.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding Path=BindingContext.ViewImageCommand, Source={x:Reference stackViewCell}}"
+                                            CommandParameter="{Binding .}"
+                                            />
+                                    </controls:CircleImage.GestureRecognizers>
+                                </controls:CircleImage>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+                
+                <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="1" />
+                <StackLayout Orientation="Horizontal"
+                                             Grid.Row="2" 
+                                             Margin="10"
+                                             HorizontalOptions="Center"
+                             Padding="0">
+
+                    <Button Text="Delete" 
+                            BackgroundColor="Red"
+                            IsEnabled="{Binding IsSelectedImage}"
+                            Command="{Binding DeleteCommand}"
+                            CornerRadius="10"
+                            TextColor="White"
+                            WidthRequest="120" />
+                    
+                    <Button Text="Detail" 
+                            BackgroundColor="#1C8BE1"
+                            CornerRadius="10"
+                            TextColor="White"
+                            WidthRequest="120" />
+                </StackLayout>
+                <BoxView BackgroundColor="Black" HeightRequest="1" Grid.Row="3" />
+
+                <controls:CircleImage  
+                                    Grid.Row="4"
+                                    Margin="10"
+                                    Source="{Binding SelectedImage.Image, Mode=TwoWay}"
+                                    Aspect="Fill" 
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HeightRequest="300"
+                                    WidthRequest="300" />
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

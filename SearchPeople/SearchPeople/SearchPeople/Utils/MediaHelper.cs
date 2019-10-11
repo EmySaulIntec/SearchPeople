@@ -12,7 +12,13 @@ namespace SearchPeople.Utils
     {
         public class ImagePhoto
         {
-            public ImageSource Image { get; set; }
+            public ImageSource Image
+            {
+                get
+                {
+                    return ImageSource.FromFile(this.Path);
+                }
+            }
             public string Path { get; set; }
             public string Text { get; set; }
             public FileStream StreamImage { get; set; }
@@ -47,10 +53,7 @@ namespace SearchPeople.Utils
 
                  return new ImagePhoto()
                  {
-                     Image = ImageSource.FromStream(() =>
-                     {
-                         return e.GetStream();
-                     }),
+                     
                      Path = e.Path,
                      StreamImage = new FileStream(e.Path, FileMode.Open)
                  };
@@ -89,10 +92,6 @@ namespace SearchPeople.Utils
 
             return new ImagePhoto()
             {
-                Image = ImageSource.FromStream(() =>
-                {
-                    return file.GetStream();
-                }),
                 Path = file.Path
             };
 

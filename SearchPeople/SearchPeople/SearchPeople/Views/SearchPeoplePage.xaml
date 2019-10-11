@@ -4,97 +4,161 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="SearchPeople.Views.SearchPeoplePage" Title="Search Images">
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="SearchPeople.Views.SearchPeoplePage" Title="Search Images" BackgroundColor="White">
     
     <ContentPage.Content>
-        
-        <StackLayout >
-
-            <Grid RowSpacing="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="0.4*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="0.3*"/>
-                </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="White" >
+           
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*" />
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
 
-                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,0,20">
-                    <ScrollView Orientation="Horizontal">
-                        <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding TrainingTempImages}">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate  >
-                                        <Frame  CornerRadius="100" 
-                                                    HeightRequest="200"
-                                                    WidthRequest="200"
-                                                    HorizontalOptions="Center"
-                                                    Padding="0"
-                                                    IsClippedToBounds="True">
-                                            <Image Source="{Binding Image}" 
-                                                           Aspect="Fill"
-                                                           HorizontalOptions="Center"
-                                                           VerticalOptions="Center" />
-                                        </Frame>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-                    </ScrollView>
+                <controls:CircleImage  
+                    Grid.RowSpan="2"
+                        Grid.Column="0"
+                        Margin="10"
+                        Source="personCircle.png"
+                        Aspect="Fill" 
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        HeightRequest="100"
+                        WidthRequest="100" />
+                
+                <Label 
+                        Grid.Column="1"
+                        TextColor="Black"
+                        Text="Search People"  
+                        FontAttributes="Bold"  
+                        FontSize="Large"
+                        HorizontalOptions="CenterAndExpand"
+                        Margin="10" />
+                
+                <StackLayout Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
+                    <Entry Placeholder="Person Name" HorizontalOptions="Fill"
+                           WidthRequest="180"
+                           IsEnabled="{Binding IsNotComparig}"
+                           Text="{Binding PersonName, Mode=TwoWay}"
+                           />
 
+                    <Button Text="Add"  
+                        TextColor="White"
+                        BackgroundColor="#1C8BE1"
+                        IsEnabled="{Binding IsNotComparig}"
+                        CornerRadius="2"
+                        WidthRequest="80" 
+                        Command="{Binding AddPersonCommand}" />
+                    
+                </StackLayout>
+            </Grid>
+            
+            <BoxView  BackgroundColor="Black" HeightRequest="1" />
+            
+            <Label Text="Created People" 
+                   FontSize="Large" 
+                   Margin="10" 
+                   TextColor="Black"
+                   FontAttributes="Bold" />
+            <Grid>
+                     <ListView HasUnevenRows="True" 
+                              
+                      CachingStrategy="RecycleElement"
+                      IsRefreshing="{Binding IsRegreshing}"         
+                      x:Name="listViewCell"
+                                RefreshCommand="{Binding LoadImagesCommand}"
+                               ItemsSource="{Binding TrainingListImages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <controls:CircleImage  
+                                    Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    Margin="10"
+                                    Source="{Binding MainImage}"
+                                    Aspect="Fill" 
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HeightRequest="100"
+                                    WidthRequest="100" />
 
-                    <Button Text="Add image" 
-                            VerticalOptions="End" 
-                            HorizontalOptions="End" 
-                            Margin="0,0,10,0"
-                            Command="{Binding AddFaceToPersonCommand}" >
-                    </Button>
-                </Grid>
-
-
-                <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.2*"/>
-                        <ColumnDefinition Width="0.8*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Entry Grid.Column="0" Placeholder="Person Name" Text="{Binding PersonName}" />
-                    <Button Grid.Column="1" Text="Agregar Persona" Command="{Binding AddPersonCommand}" />
-                </Grid>
-
-                <ScrollView Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" >
-                    <StackLayout Orientation="Horizontal" BindableLayout.ItemsSource="{Binding TrainingListImages}">
-                        <Label Text="" />
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Frame  CornerRadius="100" 
-                                            HeightRequest="200"
-                                            WidthRequest="200"
-                                            HorizontalOptions="Center"
-                                            Padding="0"
-                                            IsClippedToBounds="True">
-                                        <Image Source="{Binding MainImage}" 
-                                                   Aspect="Fill"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center" />
-                                    </Frame>
+                                <Label 
                                     
-                                    <Label Text="{Binding Name}" Margin="0" HorizontalOptions="Center" VerticalOptions="End" />
-                                </Grid>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </ScrollView>
+                                    Grid.Column="1"
+                                   
+                                    Text="{Binding Name}"  
+                                    FontAttributes="Bold"  
+                                    Margin="10,0,0,0" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Name}"  
+                                                  TextColor="Black" 
+                                                  FontAttributes="Bold" FontSize="Large"/>
+                                            <Span Text="&#10;"/>
+                                            <Span Text="{Binding CountImages, Mode=TwoWay,  StringFormat='{0} Imagenes'}"  />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                
+                                
 
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Row="1" 
+                                             Grid.Column="1" 
+                                             Margin="10"
+                                             HorizontalOptions="CenterAndExpand">
 
-                <Button Text="Buscar en Imagenes" Grid.Row="4" Grid.ColumnSpan="2" VerticalOptions="End" Command="{Binding SearchInPhotosCommand}"  />
+                                    <Button Text="Images"  
+                                            TextColor="White"
+                                            Command="{Binding Path=BindingContext.ViewImagesCommand, Source={x:Reference listViewCell}}"
+                                            CommandParameter="{Binding .}"
+                                            BackgroundColor="#1C8BE1"
+                                            CornerRadius="10"
+                                            WidthRequest="120"
+                                            />
+
+                                    <Button Text="Delete" 
+                                            CornerRadius="10"
+                                            TextColor="Black"
+                                            WidthRequest="120"
+                                            Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference listViewCell}}"
+                                            CommandParameter="{Binding .}"
+                                            />
+                                </StackLayout>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button 
+                HorizontalOptions="End"
+                IsEnabled="{Binding IsNotRefreshing}"
+                VerticalOptions="End"
+                CornerRadius="20" 
+                Margin="0,0,15,20"
+                BackgroundColor="Black"
+                Text="Comparar"
+                Command="{Binding SearchInPhotosCommand}"
+                TextColor="White"
+                />
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>
