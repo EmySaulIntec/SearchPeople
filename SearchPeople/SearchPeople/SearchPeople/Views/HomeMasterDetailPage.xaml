@@ -7,29 +7,17 @@
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="White">
 
-                <Button Text="Home" HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="Center"
-                        BackgroundColor="White"
-                        Command="{Binding GoToPageCommand}" 
-                        CommandParameter="{Binding Source={x:Static local:NavigationConstants.Home}}" />
-
-                <Button Text="Search People" HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="Center"
-                        BackgroundColor="White"
-                        Command="{Binding GoToPageCommand}"
-                        CommandParameter="{Binding Source={x:Static local:NavigationConstants.SearchPeople}}"/>
-
-                <Button Text="Configuration" HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="Center"
-                        BackgroundColor="White"
-                        Command="{Binding GoToPageCommand}" 
-                        CommandParameter="{Binding Source={x:Static local:NavigationConstants.Configuration}}"/>
-
-                <Button Text="About us" HorizontalOptions="FillAndExpand" 
-                        VerticalOptions="Center"
-                        BackgroundColor="White"
-                        Command="{Binding GoToPageCommand}" 
-                        CommandParameter="{Binding Source={x:Static local:NavigationConstants.AboutUs}}"/>
+                <Button Text="Home" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                        Command="{Binding GoToPageCommand}" CommandParameter="{Binding Source={x:Static local:NavigationConstants.Home}}" />
+                
+                <Button Text="Search People" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                        Command="{Binding GoToPageCommand}" CommandParameter="{Binding Source={x:Static local:NavigationConstants.SearchPeople}}"/>
+                
+                <Button Text="Configuration" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                        Command="{Binding GoToPageCommand}" CommandParameter="{Binding Source={x:Static local:NavigationConstants.Configuration}}"/>
+              
+                <Button Text="About us" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                        Command="{Binding GoToPageCommand}" CommandParameter="{Binding Source={x:Static local:NavigationConstants.AboutUs}}"/>
 
             </StackLayout>
         </ContentPage>
