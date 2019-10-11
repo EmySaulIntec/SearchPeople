@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SearchPeople.TestPlugins.EmptyTestPage" BackgroundColor="white">
+    <ContentPage.Content>
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.9*"  />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Label 
+                    Grid.Row="0"
+                    Text="SEARCH PEOPLE"
+                    FontAttributes="Bold"
+                    FontSize="26"
+                    TextColor="Black"
+                    Margin="20"
+                    VerticalOptions="StartAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+
+                <Entry 
+                    Margin="10,0,10,0"
+                    Grid.Row="1"
+                    Placeholder="Search person" />
+
+                <Image
+                    Grid.Row="2"
+                    Source="TestEmpty.PNG"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Aspect="AspectFit" />
+
+            <Button Grid.Row="3"
+                    VerticalOptions="Start"
+                    Margin="0,0,20,0"
+                    HorizontalOptions="End"
+                    Style="{StaticResource cicleButton}"
+                    Text="+"
+                    FontSize="20"
+                    HeightRequest="50"
+                    WidthRequest="50" />
+        </Grid>
+            
+     
+    </ContentPage.Content>
+</ContentPage>

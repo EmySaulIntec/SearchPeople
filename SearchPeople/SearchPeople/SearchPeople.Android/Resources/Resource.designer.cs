@@ -8357,6 +8357,7 @@ namespace SearchPeople.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_id = global::SearchPeople.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_inflatedId = global::SearchPeople.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_layout = global::SearchPeople.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::Xamd.ImageCarousel.Forms.Plugin.Droid.Resource.String.library_name = global::SearchPeople.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -12083,10 +12084,13 @@ namespace SearchPeople.Droid
 			public const int roundedbgdark = 2131165503;
 			
 			// aapt resource value: 0x7F070140
-			public const int tooltip_frame_dark = 2131165504;
+			public const int TestEmpty = 2131165504;
 			
 			// aapt resource value: 0x7F070141
-			public const int tooltip_frame_light = 2131165505;
+			public const int tooltip_frame_dark = 2131165505;
+			
+			// aapt resource value: 0x7F070142
+			public const int tooltip_frame_light = 2131165506;
 			
 			static Drawable()
 			{
