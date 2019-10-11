@@ -8,19 +8,7 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout BackgroundColor="White">
-                <ListView ItemsSource="{Binding TextList}">
-                    <ListView.Behaviors>
-                        <b:EventToCommandBehavior EventName="ItemTapped" 
-                                          Command="{Binding GoToPageCommand}"
-                                          EventArgsConverter="{converters:ItemTappedEventArgsConverter}"/>
-                    </ListView.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ImageCell TextColor="Black" 
-                                       Text="{Binding Tittle}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Label Text="Hola" />
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>
